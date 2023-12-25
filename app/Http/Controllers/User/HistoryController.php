@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apply;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,20 +19,24 @@ class HistoryController extends Controller
 
     public function history()
     {
-        $applies = DB::table('applies')
-                        ->join('jobs', 'applies.job_id', '=', 'jobs.id')
-                        ->where('user_id', Auth::user()->id)
+        $applies = Apply::where('user_id', Auth::user()->id)
+                        ->with('user')
+                        ->with('job')
+                        ->with('instation')
                         ->get();
-
-                        $applies = $applies->map(function($data){
+                        
+        $applies = $applies->map(function($data){
+            $selection = $data->job->selection ? Carbon::createFromDate($data->job->selection)->isoFormat('D MMMM Y') : null;
             return (object) [
                 'id' => $data->id,
-                'instation' => $data->instation,
+                'instation' => $data->instation->name,
+                'address' => $data->instation->address,
                 'position' => $data->position,
                 'desc' => $data->desc,
-                'start' => $data->start,
-                'end' => $data->end,
-                'selection' => $data->selection,
+                'start' => Carbon::createFromDate($data->start)->isoFormat('D MMMM Y'),
+                'end' => Carbon::createFromDate($data->end)->isoFormat('D MMMM Y'),
+                'selection' =>  $selection,
+                'notes' => $data->notes,
                 'apply_date' => Carbon::parse($data->created_at)->format('d-m-Y'),
             ];
         });

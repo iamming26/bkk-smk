@@ -50,9 +50,9 @@
                                         <h5 class="mb-2">Persyaratan:</h5>
                                         {!! $job->desc !!}
                                         <h5 class="mt-2">Periode Pendaftaran:</h5>
-                                        <p>{{ \Carbon\Carbon::parse($job->start)->format('d-m-Y') }} s.d. {{ \Carbon\Carbon::parse($job->end)->format('d-m-Y') }}</p>
+                                        <p>{{ $job->start }} s.d. {{ $job->end }}</p>
                                         <h5 class="mt-2">Pelaksanaan Tes:</h5>
-                                        <p>{{ \Carbon\Carbon::parse($job->selection)->format('d-m-Y') ?? '*menyusul' }}</p>
+                                        <p>{{ $job->selection ?? '*menyusul' }}</p>
                                         <h5 class="mt-2">Catatan:</h5>
                                         <p>{{ $job->notes ?? '-' }}</p>
                                     </div>

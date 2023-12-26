@@ -7,6 +7,31 @@
             @include('components.alerts')
         </div>
 
+        <div class="col-md-12 mb-4">
+            <div class="p-5 text-center bg-image rounded-3" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');height: 400px;">
+                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-white p-2">
+                            <h1 class="mb-3">BKK SMK SRIWIJAYA</h1>
+                            <h4 class="mb-3">Selamat Datang,</h4>
+                            <h4 class="mb-3">Harap Diperhatikan:</h4>
+                            <p class="mb-3">Lorem ipsum dolor sit, ametisi consequatur eum! Cumque facere blanditiis delectus accusantium ipsam, iusto repudiandae adipisci? Natus deleniti eius veritatis ullam ratione!</p>
+                            <a class="btn btn-outline-light btn-lg mb-3" href="#!" role="button">Selengkapnya...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 mb-3">
+            <div class="card border-0 navbar-custom-color">
+                {{-- <div class="card-body text-center"> --}}
+                    <h3 class="text-center text-white">Lowongan Tersedia</h3>
+                {{-- </div> --}}
+            </div>
+        </div>
+
         @foreach ($jobs as $job)
         <div class="col-md-4 mb-4">
             <div class="card" style="">
@@ -37,6 +62,10 @@
                         </div>
                     @endif
                 </div>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ $loop->iteration }}
+                    <span class="visually-hidden">{{ $loop->iteration }}</span>
+                  </span>
             </div>
         </div>
         <div class="modal fade" id="detailModal{{ $loop->iteration }}" tabindex="-1" aria-labelledby="detailModal{{ $loop->iteration }}Label" aria-hidden="true">

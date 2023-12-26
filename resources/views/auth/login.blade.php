@@ -6,7 +6,7 @@
         <div class="col-md-8">
             @include('components.alerts')
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header navbar-custom-color text-white">{{ __('Login') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $applies = Apply::with('user')->with('job')->get();
+        $applies = Apply::with('user')->with('job')->with('instation')->get();
         $jobs = $this->getData($applies);
 
         return view('admin.dashboard', compact('jobs'));

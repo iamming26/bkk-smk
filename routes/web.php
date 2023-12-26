@@ -29,6 +29,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function(){
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/history', [\App\Http\Controllers\User\HistoryController::class, 'history'])->name('history');
         Route::post('/delete', [\App\Http\Controllers\User\HistoryController::class, 'delete'])->name('delete');
+        Route::get('/profile', [\App\Http\Controllers\ProfilController::class, 'index'])->name('profile');
     });
 });
 
@@ -41,5 +42,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function(){
         Route::resource('/job', \App\Http\Controllers\Admin\JobController::class);
         // Route::get('/history', [\App\Http\Controllers\User\HistoryController::class, 'history'])->name('history');
         // Route::post('/delete', [\App\Http\Controllers\User\HistoryController::class, 'delete'])->name('delete');
+
+        Route::get('/profile', [\App\Http\Controllers\ProfilController::class, 'index'])->name('profile');
     });
+
 });

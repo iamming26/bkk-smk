@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 @include('components.alerts')
                 <div class="card mb-3">
-                    <img src="https://dummyimage.com/1200x80/000/fff" class="card-img-top" alt="...">
+                    <img src="https://dummyimage.com/1200x80/000/fff" class="card-img-top">
                     <div class="card-body">
                       <h5 class="card-title">Pekerjaan yang dilamar:</h5>
                       <table class="table table-stripped">

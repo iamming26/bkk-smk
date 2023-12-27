@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -52,14 +54,17 @@ class LoginController extends Controller
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             if(auth()->user()->type == 'admin'){
+                Alert::success('Welcome!', 'Login as ' . Auth::user()->name);
                 return redirect()->route('admin.dashboard');
             } elseif(auth()->user()->type == 'user'){
+                Alert::success('Welcome!', 'Login as ' . Auth::user()->name);
                 return redirect()->route('home');
             }else{
                 return redirect()->route('home');
             }
         }else{
-            return redirect()->back()->with('fail', 'Email or Password are wrong');
+            Alert::error('Failed!', 'Email or Password are wrong.');
+            return redirect()->back();
         }
     }
 }

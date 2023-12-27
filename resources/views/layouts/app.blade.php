@@ -52,6 +52,17 @@
             border: 0 !important;
         }
 
+        .custom-bg{
+            background-color: #00DBDE;
+            background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+        }
+
+        .card-in-container {
+            padding: 1.5em 0.5em 0.5em;
+            border-radius: 2em;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
     </style>
     @yield('css')
 </head>

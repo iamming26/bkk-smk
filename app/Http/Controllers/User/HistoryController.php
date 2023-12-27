@@ -24,6 +24,10 @@ class HistoryController extends Controller
                         ->with('job')
                         ->with('instation')
                         ->get();
+
+        $title = 'Confirmation Delete!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
                         
         $applies = $applies->map(function($data){
             $selection = $data->job->selection ? Carbon::createFromDate($data->job->selection)->isoFormat('D MMMM Y') : null;
@@ -31,7 +35,7 @@ class HistoryController extends Controller
                 'id' => $data->id,
                 'instation' => $data->instation->name,
                 'address' => $data->instation->address,
-                'position' => $data->position,
+                'position' => $data->job->position,
                 'desc' => $data->desc,
                 'start' => Carbon::createFromDate($data->start)->isoFormat('D MMMM Y'),
                 'end' => Carbon::createFromDate($data->end)->isoFormat('D MMMM Y'),
@@ -48,8 +52,8 @@ class HistoryController extends Controller
 
     public function delete(Request $request)
     {
-        $data = DB::table('applies')->delete($request->id);
-
-        return redirect()->back()->with('success', 'Berhasil Dihapus !');
+        DB::table('applies')->delete($request->id);
+        alert()->success('Success!','Apply Job Deleted Successfully');
+        return redirect()->back();
     }
 }

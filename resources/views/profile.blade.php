@@ -28,7 +28,7 @@
                                     <div class="card-body">
                                       <h5 class="card-title">{{ $user->name }}</h5>
                                       <p class="card-text">{{ $user->email }}</p>
-                                      <a href="#" class="btn btn-primary">{{ $user->type }}</a>
+                                      <p class="btn btn-sm btn-success">{{ $user->type }}</p>
                                     </div>
                                   </div>
                             </div>
@@ -132,11 +132,6 @@
         margin: 0 auto;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
-    .card-in-container {
-        padding: 1.5em 0.5em 0.5em;
-        border-radius: 2em;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    }
     .item-center{
         text-align: center;
     }
@@ -149,11 +144,5 @@
         border-radius: 2em;
         padding: 0.5em 1.5em;
     }
-
-    .custom-bg{
-        background-color: #00DBDE;
-        background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
-    }
-
 </style>
 @endsection

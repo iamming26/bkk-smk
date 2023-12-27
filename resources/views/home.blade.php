@@ -8,14 +8,15 @@
         </div>
 
         <div class="col-md-12 mb-4">
-            <div class="p-5 text-center bg-image rounded-3" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');height: 400px;">
+            {{-- <div class="p-5 text-center bg-image rounded-3" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');height: 400px;"> --}}
+            <div class="p-5 text-center bg-image full-image rounded-3" style="background-image: url('{{ asset('/images/banner-smk.jpeg') }}');height: 400px;">
                 <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div class="text-white p-2">
                             <h1 class="mb-3">BKK SMK SRIWIJAYA</h1>
                             <h4 class="mb-3">Selamat Datang,</h4>
                             <h4 class="mb-3">Harap Diperhatikan:</h4>
-                            <p class="mb-3">Lorem ipsum dolor sit, ametisi consequatur eum! Cumque facere blanditiis delectus accusantium ipsam, iusto repudiandae adipisci? Natus deleniti eius veritatis ullam ratione!</p>
+                            <p class="mb-3">Pastikan email anda aktif untuk memudahkan dalam pemberitahuan dan menginfrormasi mengenai seluruh tahapan rekrutmen lowongan pekerjaan yang tersedia.</p>
                             <a class="btn btn-outline-light btn-lg mb-3" href="#!" role="button">Selengkapnya...</a>
                         </div>
                     </div>
@@ -48,6 +49,8 @@
                             <form action="{{ route('apply') }}" class="d-inline" method="post">
                             @csrf
                             <input type="hidden" name="instation_id" value="{{ $job->id }}">
+                            <input type="hidden" name="instation_name" value="{{ $job->instation }}">
+                            <input type="hidden" name="position" value="{{ $job->position }}">
                             @if ($job->status)
                             <button type="button" class="btn btn-sm btn-warning">Sudah Melamar</button>
                             @else
@@ -107,4 +110,16 @@
         @endforeach
     </div>
 </div>
+@endsection
+
+@section('css')
+<style>
+    .full-image{
+        /* background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover; */
+        /* margin-inline: -10px; */
+        border: 1px solid;
+    }
+</style>
 @endsection

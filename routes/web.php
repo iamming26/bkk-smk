@@ -28,7 +28,7 @@ Route::post('/apply', [\App\Http\Controllers\JobController::class, 'apply'])->na
 Route::middleware(['auth', 'user-access:user'])->group(function(){
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/history', [\App\Http\Controllers\User\HistoryController::class, 'history'])->name('history');
-        Route::post('/delete', [\App\Http\Controllers\User\HistoryController::class, 'delete'])->name('delete');
+        Route::delete('{id}/destroy', [\App\Http\Controllers\User\HistoryController::class, 'delete'])->name('delete');
         Route::get('/profile', [\App\Http\Controllers\ProfilController::class, 'index'])->name('profile');
         Route::put('/profile/update/{id}', [\App\Http\Controllers\ProfilController::class, 'update'])->name('profile.update');
     });

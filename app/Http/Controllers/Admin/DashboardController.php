@@ -21,7 +21,7 @@ class DashboardController extends Controller
 
     protected function getData($data)
     {
-        $jobs = JobModel::all();
+        $jobs = JobModel::with('instation')->get();
         $job_id = $data->pluck('job_id');
 
         setlocale(LC_TIME, 'id_ID');

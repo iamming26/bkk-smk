@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12 mb-4">
-            @include('components.alerts')
+
         </div>
 
         <div class="col-md-12 mb-4">
@@ -55,7 +55,11 @@
                             <button type="button" class="btn btn-sm btn-warning">Sudah Melamar</button>
                             @else
                                 @if (Auth::user()->type != 'admin')
-                                <button type="submit" class="btn btn-sm btn-primary">Lamar</button>
+                                    @if ($job->is_open)
+                                    <button type="submit" class="btn btn-sm btn-primary">Lamar</button>
+                                    @else
+                                    <button type="button" class="btn btn-sm btn-danger">Ditutup</button>
+                                    @endif
                                 @endif
                             @endif
                             </form>
@@ -115,10 +119,6 @@
 @section('css')
 <style>
     .full-image{
-        /* background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover; */
-        /* margin-inline: -10px; */
         border: 1px solid;
     }
 </style>

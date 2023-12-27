@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12 mb-4">
-            @include('components.alerts')
+            {{-- @include('components.alerts') --}}
         </div>
 
         <div class="col-md-12">

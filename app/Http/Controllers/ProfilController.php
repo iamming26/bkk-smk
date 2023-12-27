@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfilController extends Controller
 {
@@ -37,7 +38,8 @@ class ProfilController extends Controller
             $user->email = $request->email;
             $user->update();
 
-            return redirect()->back()->with('success', 'Email Berhasil Diupdate !');
+            Alert::success('Success!', 'Email updated succesfully.');
+            return redirect()->back();
 
         }elseif(!$request->email && $request->password_new && $request->confirmation_password_new){
             $this->validate($request, [
@@ -49,7 +51,8 @@ class ProfilController extends Controller
             $user->password = Hash::make($request->confirmation_password_new);
             $user->update();
 
-            return redirect()->back()->with('success', 'Password Berhasil Diupdate !');
+            Alert::success('Success!', 'Password updated succesfully.');
+            return redirect()->back();
 
         }elseif($request->email && $request->password_new && $request->confirmation_password_new){
             $this->validate($request, [
@@ -63,10 +66,12 @@ class ProfilController extends Controller
             $user->password = Hash::make($request->confirmation_password_new);
             $user->update();
 
+            Alert::success('Success!', 'Email & Password updated succesfully.');
             return redirect()->back()->with('success', 'Email & Password Berhasil Diupdate !');
 
         }else{
-            return redirect()->back()->with('fail', 'Email atau Password Baru tidak diisi !');
+            Alert::error('Failed!', 'Email & Password is required.');
+            return redirect()->back();
         }
 
     }

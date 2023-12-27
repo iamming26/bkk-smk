@@ -37,7 +37,9 @@
                             <div class="container">
                                 <div class="card card-in-container">
                                     <div class="card-body">
-                                        <form>
+                                        <form method="post" action="{{ (Auth::user()->id == 'admin') ? route('admin.profile.update', ['id'=>Auth::user()->id]) : route('user.profile.update', ['id'=>Auth::user()->id]) }}">
+                                            @csrf
+                                            @method('put')
                                             <div class="row mb-3">
                                               <label for="email" class="col-sm-2 col-form-label">Email</label>
                                               <div class="col-sm-10">
@@ -71,7 +73,6 @@
                                                   @enderror
                                                 </div>
                                               </div>
-
                                             <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalConfirmation">Update</a>
 
                                             <div class="modal fade" id="modalConfirmation" tabindex="-1" aria-labelledby="modalConfirmationLabel" aria-hidden="true">
@@ -82,7 +83,7 @@
                                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body custom-bg">
-                                                        <input type="password" value="{{ old('password_old') }}" name="password_old" class="form-control @error('password_old') is-invalid @enderror" id="password_old" placeholder="Isikan dengan password saat ini..">
+                                                        <input type="password" value="{{ old('password_old') }}" name="password_old" class="form-control @error('password_old') is-invalid @enderror" id="password_old" placeholder="Isikan dengan password saat ini.." required>
                                                     </div>
                                                     <div class="modal-footer">
                                                       <button type="submit" class="btn btn-primary">Lanjutkan</button>

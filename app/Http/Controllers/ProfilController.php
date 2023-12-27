@@ -20,43 +20,54 @@ class ProfilController extends Controller
 
     public function update(Request $request)
     {
-        $this->verifyOldPassword($request->password_old, $request->all());
+        $verify = Hash::check($request->password_old, Auth::user()->password);
+
+        if(!$verify){
+            return redirect()->back()->with('fail', 'Verifikasi Password Salah !');
+        }
         
         $id = Auth::user()->id;
 
-        $data = $this->validate($request, [
-            'email' => 'email:dns|unique:users,email',
-            'password_new' => 'min:8',
-            'verify_password_new' => 'same:password_new',
-        ]);
+        if(!$request->password && !$request->confirmation_password_new && $request->email){
+            $this->validate($request, [
+                'email' => 'email|unique:users,email',
+            ]);
 
-        if(!$data['email']){
             $user = User::find($id);
-            $user->password = Hash::make($data['verify_password_new']);
-            $user->save();
-        }elseif(!$data['verify_password_new']){
+            $user->email = $request->email;
+            $user->update();
+
+            return redirect()->back()->with('success', 'Email Berhasil Diupdate !');
+
+        }elseif(!$request->email && $request->password_new && $request->confirmation_password_new){
+            $this->validate($request, [
+                'password_new' => 'min:8',
+                'confirmation_password_new' => 'same:password_new',
+            ]);
+
             $user = User::find($id);
-            $user->email = $data['email'];
-            $user->save();
-        }elseif(!$data['email'] && !$data['verify_password_new']){
+            $user->password = Hash::make($request->confirmation_password_new);
+            $user->update();
+
+            return redirect()->back()->with('success', 'Password Berhasil Diupdate !');
+
+        }elseif($request->email && $request->password_new && $request->confirmation_password_new){
+            $this->validate($request, [
+                'email' => 'email|unique:users,email',
+                'password_new' => 'min:8',
+                'confirmation_password_new' => 'same:password_new',
+            ]);
+
             $user = User::find($id);
-            $user->email = $data['email'];
-            $user->password = Hash::make($data['verify_password_new']);
-            $user->save();
+            $user->email = $request->email;
+            $user->password = Hash::make($request->confirmation_password_new);
+            $user->update();
+
+            return redirect()->back()->with('success', 'Email & Password Berhasil Diupdate !');
+
         }else{
-            return redirect()->back()->with('fail', 'Email atau Passwod tidak diisi !.');
+            return redirect()->back()->with('fail', 'Email atau Password Baru tidak diisi !');
         }
 
-    }
-
-    protected function verifyOldPassword($password_old, $req)
-    {
-        $verify = Hash::check($password_old, Auth::user()->password);
-
-        if(!$verify){
-            return redirect()->back()->with('fail', 'Verifikasi Password Salah !.');
-        }
-
-        return true;
     }
 }

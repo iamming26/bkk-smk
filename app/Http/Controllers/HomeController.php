@@ -41,10 +41,11 @@ class HomeController extends Controller
                 'end' => Carbon::createFromDate($job->end)->isoFormat('D MMMM Y'),
                 'selection' => Carbon::createFromDate($job->selection)->isoFormat('D MMMM Y') ?? null,
                 'notes' => $job->notes,
-                'status' => (in_array($job->id, $applied)) ? true : false
+                'status' => (in_array($job->id, $applied)) ? true : false,
+                'is_open' => $job->end > Carbon::now() ? true : false,
             ];
         });
-        
+
         return view('home', [
             'jobs' => $jobs
         ]);

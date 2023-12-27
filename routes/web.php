@@ -41,8 +41,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function(){
         Route::get('/dashboard/{id}', [\App\Http\Controllers\Admin\DashboardController::class, 'detail'])->name('dashboard.detail');
 
         Route::resource('/job', \App\Http\Controllers\Admin\JobController::class);
-        // Route::get('/history', [\App\Http\Controllers\User\HistoryController::class, 'history'])->name('history');
-        // Route::post('/delete', [\App\Http\Controllers\User\HistoryController::class, 'delete'])->name('delete');
+        Route::resource('/activity', \App\Http\Controllers\Admin\ActivityController::class);
+        Route::resource('/job-seeker', \App\Http\Controllers\Admin\JobSeekerController::class);
+        Route::resource('/recruiter', \App\Http\Controllers\Admin\RecruiterController::class);
 
         Route::get('/profile', [\App\Http\Controllers\ProfilController::class, 'index'])->name('profile');
         Route::put('/profile/update/{id}', [\App\Http\Controllers\ProfilController::class, 'update'])->name('profile.update');

@@ -13,35 +13,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $applies = Apply::with('user')->with('job')->with('instation')->get();
-        $jobs = $this->getData($applies);
-
-        return view('admin.dashboard', compact('jobs'));
+        return view('admin.dashboard');
     }
 
-    protected function getData($data)
-    {
-        $jobs = JobModel::with('instation')->get();
-        $job_id = $data->pluck('job_id');
-
-        setlocale(LC_TIME, 'id_ID');
-        $result = $jobs->map(function($job) use($job_id){
-            $counted = $job_id->countBy();
-            $total = $counted->all();
-
-            return (object) [
-                'id' => $job->id,
-                'instation' => $job->instation->name,
-                'position' => $job->position,
-                'desc' => $job->desc,
-                'start' => Carbon::createFromDate($job->start)->isoFormat('D MMMM Y'),
-                'end' => Carbon::createFromDate($job->end)->isoFormat('D MMMM Y'),
-                'selection' => Carbon::createFromDate($job->selection)->isoFormat('D MMMM Y') ?? null,
-                'notes' => $job->notes,
-                'total' => $total[$job->id] ?? 0,
-            ];
-        })->values();
-
-        return $result;
-    }
+    
 }

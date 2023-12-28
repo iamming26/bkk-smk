@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RecruiterController extends Controller
 {
@@ -12,7 +15,18 @@ class RecruiterController extends Controller
      */
     public function index()
     {
-        return view('admin.recruiter.index');
+        $recruiters = User::where('type', 3)
+                            ->join('user_details', 'users.id', 'user_details.user_id')
+                            ->join('instations', 'user_details.instation_id', 'instations.id')
+                            ->select('users.id as id','users.name as name', 'instations.name as instation', 'user_details.phone as phone')
+                            ->get();
+
+        $title = 'Confirmation Delete!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
+        return view('admin.recruiter.index', compact('recruiters'));
+        
     }
 
     /**
@@ -36,7 +50,9 @@ class RecruiterController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::where('id', $id)->with('detail')->first();
+
+        return view('admin.recruiter.show', compact('user'));
     }
 
     /**
@@ -60,6 +76,23 @@ class RecruiterController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('users')->delete($id);
+        DB::table('user_details')->where('user_id', $id)->delete();
+
+        alert()->success('Success!','User Deleted Successfully');
+        return redirect()->back();
+    }
+
+    public function updateStatus($id)
+    {
+        $user = User::find($id);
+        if($user->status == 1){
+            $user->status = 0;
+        }else{
+            $user->status = 1;
+        }
+
+        Alert::success('Success!', 'Status Has Ben Updated!');
+        return redirect()->back();
     }
 }

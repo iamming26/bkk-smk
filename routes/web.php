@@ -43,7 +43,11 @@ Route::middleware(['auth', 'user-access:admin'])->group(function(){
         Route::resource('/job', \App\Http\Controllers\Admin\JobController::class);
         Route::resource('/activity', \App\Http\Controllers\Admin\ActivityController::class);
         Route::resource('/job-seeker', \App\Http\Controllers\Admin\JobSeekerController::class);
+        Route::delete('/job-seeker/{id}/delete', [\App\Http\Controllers\Admin\JobSeekerController::class, 'destroy'])->name('delete');
         Route::resource('/recruiter', \App\Http\Controllers\Admin\RecruiterController::class);
+        Route::delete('/recruiter/{id}/delete', [\App\Http\Controllers\Admin\RecruiterController::class, 'destroy'])->name('delete.rec');
+
+        Route::put('/update-status/{id}', [\App\Http\Controllers\Admin\JobSeekerController::class, 'updateStatus'])->name('update-status');
 
         Route::get('/profile', [\App\Http\Controllers\ProfilController::class, 'index'])->name('profile');
         Route::put('/profile/update/{id}', [\App\Http\Controllers\ProfilController::class, 'update'])->name('profile.update');

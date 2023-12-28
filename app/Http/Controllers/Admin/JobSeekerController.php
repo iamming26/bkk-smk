@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JobSeekerController extends Controller
 {
@@ -12,7 +15,13 @@ class JobSeekerController extends Controller
      */
     public function index()
     {
-        return view('admin.job-seeker.index');
+        $jobseekers = User::where('type', 0)->with('detail')->get();
+
+        $title = 'Confirmation Delete!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
+        return view('admin.job-seeker.index', compact('jobseekers'));
         
     }
 
@@ -37,7 +46,9 @@ class JobSeekerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::where('id', $id)->with('detail')->first();
+
+        return view('admin.job-seeker.show', compact('user'));
     }
 
     /**
@@ -61,6 +72,23 @@ class JobSeekerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('users')->delete($id);
+        DB::table('user_details')->where('user_id', $id)->delete();
+
+        alert()->success('Success!','User Deleted Successfully');
+        return redirect()->back();
+    }
+
+    public function updateStatus($id)
+    {
+        $user = User::find($id);
+        if($user->status == 1){
+            $user->status = 0;
+        }else{
+            $user->status = 1;
+        }
+
+        Alert::success('Success!', 'Status Has Ben Updated!');
+        return redirect()->back();
     }
 }

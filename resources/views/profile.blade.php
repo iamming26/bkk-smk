@@ -3,17 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12 mb-4">
-            {{-- @include('components.alerts') --}}
-        </div>
-
         <div class="col-md-12">
             <div class="card custom-bg">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-3">
                             <div class="container d-flex justify-content-center">
-                                <div class="card-in-container item-center bg-white" style="width: 18rem;">
+                                <div class="card-in-container item-center bg-white" style="max-width: 200px;">
                                     <img src="https://codingyaar.com/wp-content/uploads/bootstrap-profile-card-image.jpg" class="card-img-top" alt="...">
                                     <a data-bs-toggle="modal" data-bs-target="#modalImage">
                                         <h1>
@@ -24,7 +20,6 @@
                                         </h1>
                                     </a>
 
-                                    {{-- <img src="{{ asset('ucon.jpeg') }}" class="card-img-top" alt="..."> --}}
                                     <div class="card-body">
                                       <h5 class="card-title">{{ $user->name }}</h5>
                                       <p class="card-text">{{ $user->email }}</p>

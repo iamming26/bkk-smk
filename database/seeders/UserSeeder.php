@@ -23,6 +23,10 @@ class UserSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+
+            DB::table('user_details')->insert([
+                'user_id' => $i,
+            ]);
         }
 
         DB::table('users')->insert([
@@ -42,5 +46,14 @@ class UserSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
+        DB::table('user_details')->insert([
+            'user_id' => 101,
+        ]);
+
+        DB::table('user_details')->insert([
+            'user_id' => 102,
+        ]);
+
     }
 }

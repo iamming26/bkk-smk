@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12 mb-4">
-            <h3><a href="/admin/job-job">Lowongan</a> / Detail</h3>
+            <h3><a href="/admin/recruiter">Rekuruter</a> / Detail</h3>
         </div>
 
         <div class="card">

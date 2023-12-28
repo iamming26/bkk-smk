@@ -48,7 +48,17 @@ class User extends Authenticatable
     protected function type() : Attribute
     {
         return new Attribute(
-            get: fn ($value) => ["user", "admin"][$value],
+            get: fn ($value) => ["user", "admin", "recruiter"][$value],
         );
+    }
+
+    public function detail()
+    {
+        return $this->belongsTo(UserDetail::class, 'id', 'user_id');
+    }
+
+    public function instation()
+    {
+        return $this->belongsTo(Instation::class, 'id', 'instation_id');
     }
 }

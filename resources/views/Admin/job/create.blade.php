@@ -19,84 +19,93 @@
                 </div>
             </div>
             <div class="card-body">
-                <form class="row g-3">
+                <form class="row g-3" method="post" action="/admin/job" enctype="multipart/form-data">
+                    @csrf
                     <div class="col-md-12">
-                        <label for="instaion" class="form-label">Instansi</label>
-                        <select id="instation" name="instation" class="form-select">
-                            <option selected> -- Pilih</option>
+                        <label for="instation_id" class="form-label">Instansi</label>
+                        <select id="instation_id" name="instation_id" class="form-select @error('instation_id') is-invalid @enderror">
+                            <option value="" selected> -- Pilih</option>
                             @foreach ($instations as $instation)
-                            <option value="{{ $instation->id }}">{{ $instation->name }}</option>
+                            <option {{ old('instation_id') == $instation->id ? 'selected' : '' }} value="{{ $instation->id }}">{{ $instation->name }}</option>
                             @endforeach
                         </select>
-                        <div class="my-1">
-                            <a type="button" data-bs-toggle="modal" data-bs-target="#modalInstation" target="_blank" class="text-primary">+tambah instansi</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputEmail4" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4">
-                    </div>
-                    <div class="col-12">
-                        <label for="inputAddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                        </div>
-                    <div class="col-12">
-                        <label for="inputAddress2" class="form-label">Address 2</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity">
+                        @error('instation_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="col-md-4">
-                        <label for="inputState" class="form-label">State</label>
-                        <select id="inputState" class="form-select">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select>
+                        <label for="position" class="form-label">Posisi</label>
+                        <input type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}" id="position">
+                        @error('position')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
-                    <div class="col-md-2">
-                        <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
+                    <div class="col-md-4">
+                        <label for="start" class="form-label">Dibuka Pada:</label>
+                        <input type="date" class="form-control @error('start') is-invalid @enderror" name="start" value="{{ old('start') }}" id="start">
+                        @error('start')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label for="end" class="form-label">Sampai Dengan:</label>
+                        <input type="date" class="form-control @error('end') is-invalid @enderror" name="end" value="{{ old('end') }}" id="end">
+                        @error('end')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="desc" class="form-label">Kualifikasi:</label>
+                        <textarea class="form-control @error('desc') border-danger @enderror" name="desc" id="desc" cols="30" rows="10">{{ old('desc') }}</textarea>
+                        @error('desc')
+                            <span>
+                                <strong class="text-danger">{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="notes" class="form-label">Catatan:</label>
+                        <textarea class="form-control @error('notes') is-invalid @enderror" name="notes" id="notes" cols="30" rows="10">{{ old('notes') }}</textarea>
+                        @error('notes')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="selection" class="form-label">Pelaksanaan Tes:</label>
+                        <input type="date" class="form-control @error('foto') is-invalid @enderror" name="selection" value="{{ old('selection') }}" id="selection">
+                        @error('selection')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="photo" class="form-label">Foto Opsional:</label>
+                        <input type="file" class="form-control @error('foto') is-invalid @enderror" name="{{ old('photo') }}" id="photo">
+                        @error('photo')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                        Check me out
-                        </label>
-                    </div>
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="modalInstation" tabindex="-1" aria-labelledby="modalInstationLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="modalInstationLabel">Tambah Instansi</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 @endsection
 
 @section('css')
@@ -110,5 +119,15 @@
     $(document).ready(function() {
         $('#instation').select2();
     });
+</script>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script>
+<script>
+    // ClassicEditor is the name of the CKEditor class for the classic editor
+    ClassicEditor
+        .create(document.querySelector('#desc'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 @endsection

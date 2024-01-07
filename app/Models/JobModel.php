@@ -9,6 +9,7 @@ class JobModel extends Model
 {
     use HasFactory;
     protected $table = 'jobs';
+    protected $guarded = ['id'];
 
     public function instation()
     {

@@ -8,6 +8,7 @@ use App\Models\Instation;
 use App\Models\JobModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JobController extends Controller
 {
@@ -36,7 +37,18 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'instation_id' =>'required',
+            'position' =>'required',
+            'start' =>'required',
+            'end' =>'required',
+            'desc' =>'required',
+            'selection' =>'required',
+        ]);
+
+        JobModel::create($data);
+        Alert::success('Success!', 'Data has been created.');
+        return redirect('/admin/job');
     }
 
     /**
@@ -88,6 +100,7 @@ class JobController extends Controller
                 'desc' => $job->desc,
                 'start' => Carbon::createFromDate($job->start)->isoFormat('D MMMM Y'),
                 'end' => Carbon::createFromDate($job->end)->isoFormat('D MMMM Y'),
+                'label_end' => Carbon::now() > $job->end ? 'bg-danger text-white' : 'bg-success text-white',
                 'selection' => Carbon::createFromDate($job->selection)->isoFormat('D MMMM Y') ?? null,
                 'notes' => $job->notes,
                 'total' => $total[$job->id] ?? 0,

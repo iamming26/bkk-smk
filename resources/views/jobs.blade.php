@@ -14,6 +14,7 @@
                             <option {{ $_GET['position'] == 'QC' ? 'selected' : '' }} value="QC">QC</option>
                             <option {{ $_GET['position'] == 'maintenance' ? 'selected' : '' }} value="maintenance">Maintenance</option>
                             <option {{ $_GET['position'] == 'admin' ? 'selected' : '' }} value="admin">Admin</option>
+                            <option {{ $_GET['position'] == 'staff' ? 'selected' : '' }} value="staff">Staff</option>
                         </select>
                     </div>
                     <div class="col-md-6">

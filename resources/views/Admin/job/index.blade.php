@@ -35,7 +35,7 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $job->instation }}</td>
                                 <td>{{ $job->position }}</td>
-                                <td>{{ $job->start }} s.d {{ $job->end }}</td>
+                                <td>{{ $job->start }} s.d <b class="p-1 {{ $job->label_end }}">{{ $job->end }}</b></td>
                                 <td class="text-center">{{ $job->selection }}</td>
                                 <td class="text-center">{{ $job->total }}</td>
                                 <td class="text-center">

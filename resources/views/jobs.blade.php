@@ -3,35 +3,33 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12 mb-4">
-
-        </div>
 
         <div class="col-md-12 mb-4">
-            {{-- <div class="p-5 text-center bg-image rounded-3" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');height: 400px;"> --}}
-            <div class="p-5 text-center bg-image full-image rounded-3" style="background-image: url('{{ asset('/images/banner-smk.jpeg') }}');height: 400px;">
-                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-white p-2">
-                            <h1 class="mb-3">BKK SMK SRIWIJAYA</h1>
-                            <h4 class="mb-3">Selamat Datang,</h4>
-                            <h4 class="mb-3">Harap Diperhatikan:</h4>
-                            <p class="mb-3">Pastikan email anda aktif untuk memudahkan dalam pemberitahuan dan menginfrormasi mengenai seluruh tahapan rekrutmen lowongan pekerjaan yang tersedia.</p>
-                            <a class="btn btn-outline-light btn-lg mb-3" href="#!" role="button">Selengkapnya...</a>
-                        </div>
+            <div class="card border-0">
+                <form action="#" method="get" class="row g-3">
+                    <div class="col-md-6">
+                        <select class="form-select" id="position" name="position" onchange="this.form.submit()">
+                            <option {{ $_GET['position'] ? '' : 'selected' }} value="" selected>-- Posisi</option>
+                            <option {{ $_GET['position'] == 'operator' ? 'selected' : '' }} value="operator">Operator</option>
+                            <option {{ $_GET['position'] == 'QC' ? 'selected' : '' }} value="QC">QC</option>
+                            <option {{ $_GET['position'] == 'maintenance' ? 'selected' : '' }} value="maintenance">Maintenance</option>
+                            <option {{ $_GET['position'] == 'admin' ? 'selected' : '' }} value="admin">Admin</option>
+                        </select>
                     </div>
-                </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="study" name="study" onchange="this.form.submit()">
+                            <option value="" {{  $_GET['study'] ? '' : 'selected' }}>-- Pendidikan</option>
+                            <option {{ $_GET['study'] == 'SMA' ? 'selected' : '' }} value="SMA">SMA</option>
+                            <option {{ $_GET['study'] == 'SMK' ? 'selected' : '' }} value="SMK">SMK</option>
+                            <option {{ $_GET['study'] == 'D3' ? 'selected' : '' }} value="D3">D3</option>
+                            <option {{ $_GET['study'] == 'S1' ? 'selected' : '' }} value="S1">S1</option>
+                        </select>
+                    </div>
+                </form>
             </div>
         </div>
 
-
-        <div class="col-md-12 mb-3">
-            <div class="card border-0 navbar-custom-color">
-                <h3 class="text-center text-white">Lowongan Terbaru</h3>
-            </div>
-        </div>
-
-        @foreach ($jobs as $job)
+        @forelse ($jobs as $job)
         <div class="col-md-4 mb-4">
             <div class="card" style="">
                 <img src="https://dummyimage.com/600x400/000/fff" class="card-img-top" alt="...">
@@ -109,19 +107,23 @@
             </div>
             </div>
         </div>
-        @endforeach
-
-        <div class="col-md-12 mb-3 text-center">
-            <a href="/jobs?position=&study=" class="">Tampilkan Semua</a>
+        @empty
+        <div class="card">
+            <div class="card-body text-center">
+                <small class="fw-italic text-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+                        <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                    Data Tidak Ditemukan
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+                        <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                </small>
+            </div>
         </div>
+        @endforelse
     </div>
 </div>
-@endsection
-
-@section('css')
-<style>
-    .full-image{
-        border: 1px solid;
-    }
-</style>
 @endsection

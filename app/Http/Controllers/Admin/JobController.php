@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apply;
+use App\Models\Instation;
 use App\Models\JobModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class JobController extends Controller
      */
     public function create()
     {
-        return view('admin.job.create');
+        $instations = Instation::orderBy('name')->get();
+        return view('admin.job.create', compact('instations'));
     }
 
     /**

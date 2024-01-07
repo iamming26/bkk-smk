@@ -4,7 +4,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                @include('components.alerts')
                 <div class="card mb-3 custom-bg">
                     <img src="https://dummyimage.com/1200x80/000/fff" class="card-img-top">
                     <div class="card-body">

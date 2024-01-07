@@ -54,6 +54,34 @@ class UserSeeder extends Seeder
         DB::table('user_details')->insert([
             'user_id' => 102,
         ]);
+        
+        DB::table('users')->insert([
+            'name' => 'recruiter 1',
+            'email' => 'recruiter1@email.com',
+            'password' => Hash::make('1'),
+            'type' => 2,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'recruiter 2',
+            'email' => 'recruiter2@email.com',
+            'type' => 2,
+            'password' => Hash::make('2'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('user_details')->insert([
+            'user_id' => 103,
+            'instation_id' => 1,
+        ]);
+
+        DB::table('user_details')->insert([
+            'user_id' => 104,
+            'instation_id' => 1,
+        ]);
 
     }
 }

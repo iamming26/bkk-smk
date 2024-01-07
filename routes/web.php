@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/jobs', [App\Http\Controllers\HomeController::class, 'jobs'])->name('jobs');
 
 Route::post('/apply', [\App\Http\Controllers\JobController::class, 'apply'])->name('apply');
 

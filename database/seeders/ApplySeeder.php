@@ -15,12 +15,12 @@ class ApplySeeder extends Seeder
     public function run(): void
     {
         foreach(range(1, 100) as $user){
-            $num = rand(1,4);
+            $num = rand(1,6);
             DB::table('applies')->insert([
                 'instation_id' => rand(1, 10),
                 'user_id' => $user,
-                'created_at' => Carbon::now()->addDay($num),
-                'created_at' => Carbon::now()->addDay($num),
+                'created_at' => Carbon::now()->subDay($num),
+                'updated_at' => Carbon::now()->subDay($num),
             ]);
         }
     }

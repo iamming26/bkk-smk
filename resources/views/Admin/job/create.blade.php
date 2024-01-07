@@ -3,10 +3,6 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12 mb-4">
-            @include('components.alerts')
-        </div>
-
         <div class="card">
             <div class="row p-3">
                 <div class="col-md-6 col-sm-12">
@@ -24,6 +20,18 @@
             </div>
             <div class="card-body">
                 <form class="row g-3">
+                    <div class="col-md-12">
+                        <label for="instaion" class="form-label">Instansi</label>
+                        <select id="instation" name="instation" class="form-select">
+                            <option selected> -- Pilih</option>
+                            @foreach ($instations as $instation)
+                            <option value="{{ $instation->id }}">{{ $instation->name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="my-1">
+                            <a type="button" data-bs-toggle="modal" data-bs-target="#modalInstation" target="_blank" class="text-primary">+tambah instansi</a>
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Email</label>
                         <input type="email" class="form-control" id="inputEmail4">
@@ -71,4 +79,36 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalInstation" tabindex="-1" aria-labelledby="modalInstationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalInstationLabel">Tambah Instansi</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection
+
+@section('css')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+
+@section('js')
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#instation').select2();
+    });
+</script>
 @endsection

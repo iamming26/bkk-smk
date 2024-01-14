@@ -12,12 +12,12 @@ class JobController extends Controller
 {
     public function apply(Request $request)
     {
-        $instation_id = $request->instation_id;
+        $job_id = $request->job_id;
         $user_id = Auth::user()->id;
 
         DB::table('applies')->insert([
             'user_id' => $user_id,
-            'instation_id' => $instation_id,
+            'job_id' => $job_id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

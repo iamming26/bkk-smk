@@ -28,7 +28,8 @@ class HomeController extends Controller
     public function index()
     {
         $jobs = JobModel::with('instation')->get();
-        $applied = (Auth::user()) ? DB::table('applies')->where('user_id', Auth::user()->id)->pluck('instation_id')->toArray() : [];
+        $applied = (Auth::user()) ? DB::table('applies')->where('user_id', Auth::user()->id)->pluck('job_id')->toArray() : [];
+        // dd($applied);
 
         $jobs = $jobs->map(function($job) use ($applied){
             return (object) [
@@ -64,7 +65,7 @@ class HomeController extends Controller
                                 $query->where('desc', 'like', $key);
                             })
                             ->get();
-        $applied = (Auth::user()) ? DB::table('applies')->where('user_id', Auth::user()->id)->pluck('instation_id')->toArray() : [];
+        $applied = (Auth::user()) ? DB::table('applies')->where('user_id', Auth::user()->id)->pluck('job_id')->toArray() : [];
 
         $jobs = $jobs->map(function($job) use ($applied){
             return (object) [

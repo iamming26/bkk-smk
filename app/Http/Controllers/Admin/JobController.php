@@ -7,7 +7,9 @@ use App\Models\Apply;
 use App\Models\Instation;
 use App\Models\JobModel;
 use Carbon\Carbon;
+use Illuminate\Contracts\Queue\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class JobController extends Controller
@@ -17,8 +19,15 @@ class JobController extends Controller
      */
     public function index()
     {
-        $applies = Apply::with('user')->with('job')->with('instation')->get();
-        $jobs = $this->getData($applies);
+        // $applies = Apply::with('user')->with('job')->with('instation')->get();
+        $all_job = JobModel::with(['instation'])->get();
+        $all_apply = Apply::with('user')->get();
+
+        $jobs = $this->getData($all_job, $all_apply);
+
+        $title = 'Confirmation Delete!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
 
         return view('admin.job.index', compact('jobs'));
     }
@@ -56,7 +65,15 @@ class JobController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $job = JobModel::where('id', $id)
+                            ->with('instation')
+                            ->first();
+        $applies = DB::table('applies')
+                    ->where('job_id', $job->id)
+                    ->rightJoin('users', 'applies.user_id', '=', 'users.id')
+                    ->get();
+                    
+        return view('admin.job.show', compact('job', 'applies'));
     }
 
     /**
@@ -80,17 +97,24 @@ class JobController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //delete job
+        $job = JobModel::findOrFail($id);
+        $job->delete();
+
+        //delete applies
+        Apply::where('job_id', $id)->delete();
+        
+        alert()->success('Success!','Job Deleted Successfully');
+        return redirect()->back();
     }
 
-    protected function getData($data)
+    protected function getData($jobs, $applies)
     {
-        $jobs = JobModel::with('instation')->get();
-        $instation_id = $data->pluck('instation_id');
+        $instation = $applies->pluck('job_id');
 
         setlocale(LC_TIME, 'id_ID');
-        $result = $jobs->map(function($job) use($instation_id){
-            $counted = $instation_id->countBy();
+        $result = $jobs->map(function($job) use($instation){
+            $counted = $instation->countBy();
             $total = $counted->all();
 
             return (object) [

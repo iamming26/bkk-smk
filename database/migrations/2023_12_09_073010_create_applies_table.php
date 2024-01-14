@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('applies', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('instation_id');
+            $table->integer('job_id');
             $table->integer('status')->default(1);
             $table->timestamps();
         });

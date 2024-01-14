@@ -39,7 +39,8 @@
                                 <td class="text-center">{{ $job->selection }}</td>
                                 <td class="text-center">{{ $job->total }}</td>
                                 <td class="text-center">
-                                    <a href="/admin/job/show/{{ $job->id }}" class="btn btn-sm btn-success">Detail</a>
+                                    <a href="/admin/job/{{ $job->id }}" class="btn btn-sm btn-success">Detail</a>
+                                    <a href="/admin/job/{{ $job->id }}/delete" class="btn btn-sm btn-danger" data-confirm-delete="true">Hapus</a>
                                 </td>
                             </tr>
                         @endforeach

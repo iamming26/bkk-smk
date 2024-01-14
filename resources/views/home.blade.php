@@ -46,7 +46,7 @@
                             @auth
                             <form action="{{ route('apply') }}" class="d-inline" method="post">
                             @csrf
-                            <input type="hidden" name="instation_id" value="{{ $job->id }}">
+                            <input type="hidden" name="job_id" value="{{ $job->id }}">
                             <input type="hidden" name="instation_name" value="{{ $job->instation }}">
                             <input type="hidden" name="position" value="{{ $job->position }}">
                             @if ($job->status)
@@ -97,7 +97,7 @@
                     @auth
                     <form action="{{ route('apply') }}" method="post">
                     @csrf
-                    <input type="hidden" name="instation_id" value="{{ $job->id }}">
+                    <input type="hidden" name="job_id" value="{{ $job->id }}">
                     @if (Auth::user()->type == 'user')
                     <button type="submit" class="btn btn-sm btn-primary">Lamar</button>
                     @endif

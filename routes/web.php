@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/jobs', [App\Http\Controllers\HomeController::class, 'jobs'])->name('jobs');
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/jobs', [\App\Http\Controllers\HomeController::class, 'jobs'])->name('jobs');
 
 Route::post('/apply', [\App\Http\Controllers\JobController::class, 'apply'])->name('apply');
 
@@ -42,6 +43,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function(){
         Route::get('/dashboard/{id}', [\App\Http\Controllers\Admin\DashboardController::class, 'detail'])->name('dashboard.detail');
 
         Route::resource('/job', \App\Http\Controllers\Admin\JobController::class);
+        Route::delete('/job/{id}/delete', [\App\Http\Controllers\Admin\JobController::class, 'destroy']);
         Route::resource('/activity', \App\Http\Controllers\Admin\ActivityController::class);
         Route::resource('/job-seeker', \App\Http\Controllers\Admin\JobSeekerController::class);
         Route::delete('/job-seeker/{id}/delete', [\App\Http\Controllers\Admin\JobSeekerController::class, 'destroy'])->name('delete');

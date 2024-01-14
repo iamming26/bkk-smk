@@ -13,16 +13,11 @@ class Apply extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-    
-    public function instation()
-    {
-        return $this->belongsTo(Instation::class, 'instation_id', 'id');
+        return $this->hasMany(User::class, 'id', 'user_id');
     }
 
     public function job()
     {
-        return $this->belongsTo(JobModel::class, 'instation_id', 'instation_id');
+        return $this->belongsTo(JobModel::class, 'job_id', 'id');
     }
 }

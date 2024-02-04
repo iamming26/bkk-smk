@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Instation;
 use App\Models\User;
+use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class RecruiterController extends Controller
@@ -15,10 +18,10 @@ class RecruiterController extends Controller
      */
     public function index()
     {
-        $recruiters = User::where('type', 3)
+        $recruiters = User::where('type', 2)
                             ->join('user_details', 'users.id', 'user_details.user_id')
                             ->join('instations', 'user_details.instation_id', 'instations.id')
-                            ->select('users.id as id','users.name as name', 'instations.name as instation', 'user_details.phone as phone')
+                            ->select('users.id as id', 'users.email as email', 'users.name as name', 'instations.name as instation', 'user_details.phone as phone')
                             ->get();
 
         $title = 'Confirmation Delete!';
@@ -34,7 +37,9 @@ class RecruiterController extends Controller
      */
     public function create()
     {
-        //
+        $instations = Instation::all();
+
+        return view('admin.recruiter.create', compact('instations'));
     }
 
     /**
@@ -42,7 +47,28 @@ class RecruiterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'instation' => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|unique:user_details,phone',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make('bkk_hr_123'),
+            'type' => 2,
+        ]);
+
+        UserDetail::create([
+            'user_id' => $user->id,
+            'phone' => $request->phone,
+            'instation_id' => $request->instation,
+        ]);
+
+        alert()->success('Success!','User Deleted Successfully');
+        return redirect('admin/recruiter');
     }
 
     /**

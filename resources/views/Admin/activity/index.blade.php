@@ -3,14 +3,18 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12 mb-4">
-            <h3>Aktifitas</h3>
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/admin/activity">Aktifitas</a></li>
+                </ol>
+            </nav>
         </div>
 
         <div class="card">
             <div class="row p-3">
                 <div class="col-md-6 col-sm-12">
-                    <h5>Data Aktifitas</h5>
+                    <h5>Daftar Lowongan Pekerjaan</h5>
                 </div>
                 <div class="col-md-6 col-sm-12 text-end">
                     <a href="/admin/job/create" class="btn btn-sm btn-primary text-end">Tambah</a>
@@ -35,11 +39,12 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $job->instation }}</td>
                                 <td>{{ $job->position }}</td>
-                                <td>{{ $job->start }} s.d {{ $job->end }}</td>
+                                <td>{{ $job->start }} s.d <b class="p-1 {{ $job->label_end }}">{{ $job->end }}</b></td>
                                 <td class="text-center">{{ $job->selection }}</td>
                                 <td class="text-center">{{ $job->total }}</td>
                                 <td class="text-center">
-                                    <a href="/admin/job/show/{{ $job->id }}" class="btn btn-sm btn-success">Detail</a>
+                                    <a href="/admin/job/{{ $job->id }}" class="btn btn-sm btn-success">Detail</a>
+                                    <a href="/admin/job/{{ $job->id }}/delete" class="btn btn-sm btn-danger" data-confirm-delete="true">Hapus</a>
                                 </td>
                             </tr>
                         @endforeach --}}

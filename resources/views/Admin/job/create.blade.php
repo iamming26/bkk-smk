@@ -2,13 +2,15 @@
 
 @section('content')
 <div class="container">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/admin/job">Lowongan</a> / Tambah</li>
+            </ol>
+        </nav>
+    </div>
     <div class="row justify-content-center">
         <div class="card">
-            <div class="row p-3">
-                <div class="col-md-12 mb-4">
-                    <h3><a href="/admin/job">Lowongan</a> / Tambah</h3>
-                </div>
-            </div>
             <div class="card-body">
                 <form class="row g-3" method="post" action="/admin/job" enctype="multipart/form-data">
                     @csrf

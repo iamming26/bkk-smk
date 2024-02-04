@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="/admin/recruiter">Rekruter</a></li>
@@ -12,9 +12,12 @@
         </div>
 
         <div class="card">
-            <div class="row p-3">
+            <div class="row p-3 d-flex justify-content-between">
                 <div class="col-md-6 col-sm-12">
                     <h5>Data Rekuter</h5>
+                </div>
+                <div class="col-md-6 col-sm-12 d-sm-inline d-md-flex justify-content-end">
+                    <a href="/admin/recruiter/create" class="btn btn-primary">Tambah</a>
                 </div>
             </div>
             <div class="card-body">
@@ -23,6 +26,7 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
+                            <th>Email</th>
                             <th>Instasi</th>
                             <th>No HP</th>
                             <th>Aksi</th>
@@ -33,6 +37,7 @@
                             <tr class="align-middle">
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
                                 <td>{{ $user->instation ?? '-' }}</td>
                                 <td>{{ $user->phone ?? '-' }}</td>
                                 <td class="text-center">
